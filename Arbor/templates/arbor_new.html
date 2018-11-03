@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Arbor</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="/static/arbor/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/arbor/css/dx.common.css" rel="stylesheet">
+    <link href="/static/arbor/css/dx.light.css" rel="stylesheet">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="/static/arbor/css/home.css">
+    
+        <!-- Font Awesome JS -->
+	<script src="/static/arbor/js/jquery.min.js"></script>
+	<script src="/static/arbor/js/solid.js"></script>
+	<script src="/static/arbor/js/fontawesome.js"></script>
+	<script src="/static/arbor/js/dx.all.js"></script>
+
+    <style>
+ p{
+ text-align: center;
+ }
+ .arbor-val{
+ text-align: center;
+ font-size: 20px;
+ }
+
+.toggle {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+#gauge-demo {
+    height: 300px;
+    width: 100%;
+}
+
+#gauge {
+    width: 80%;
+    float: left;
+    height: 100%;
+}
+
+.small-box {
+	border-radius: 2px;
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #ccccff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.Active{
+	background-color:#91f441;
+}
+
+.Inactive {
+	background-color: red;
+}
+
+.Healthy{
+	background-color: #91f441;
+}
+.Critical {
+	background-color: red;
+}
+.Major {
+	background-color: orange;
+}
+
+
+
+</style>
+
+</head>
+<body>
+<div class="wrapper">
+   <aside id="sidebar">
+       <div class="sidebar-header">
+      	<a href="#" class="sidebar-toggle" onclick="myFunction(this)" role="button" style="position: relative;left: 80%;">
+	     	<div class="toggle"></div>
+			<div class="toggle"></div>
+			<div class="toggle"></div>
+      	</a>
+
+        <h3>ARBOR DASHBOARD</h3>
+        <strong>AD</strong>
+       </div>
+
+        <ul class="list-unstyled components">
+          <li class="active">
+            <a href="#homeSubmenu">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fas fa-copy"></i>
+              Dashboards
+            </a>
+            <ul class="collapse list-unstyled" id="dashboardSubmenu">
+              <li><a href="#dash1">ApiData</a></li>
+            </ul>
+          </li>
+        </ul>
+    </aside>
+
+      <!-- Page Content  -->
+     <div class="content-wrapper">
+	     	<div class='row' style="border: 1px solid #c5c5c5; margin: 10px;">
+	           <div class="col-sm-4">
+		        <div id="gauge-demo">
+		            <div id="m_gauge"></div>
+		        </div>
+		       </div>
+
+		        <div class="col-sm-2" style="background-color:#f47041; margin: 20px; width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3> <p> Maximum</p></h3>
+		              <div class="arbor-val" id="m_max"></div>
+		            </div>
+		          </div>
+		        </div>
+		       <div class="col-sm-2" style="background-color:#f4be41; margin: 20px; width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3> <p>Average</p></h3>
+		              <div class="arbor-val" id="m_avg"></div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-sm-2" style="background-color:#41ebf4; margin: 20px;  width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3> <p> Minimum</p></h3>
+		              <div class="arbor-val" id="m_min"></div>
+		            </div>
+		          </div>
+		        </div>
+	        </div>
+
+	       <div class='row' style="border: 1px solid #c5c5c5; margin: 10px;">
+	           <div class="col-sm-4">
+	           <div id="gauge-demo">
+	            <div id="a_gauge"></div>
+	        </div>
+		       </div>
+
+		        <div class="col-sm-2" style="background-color:#f47041; margin: 20px; width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3> <p> Maximum</p></h3>
+		              <div class="arbor-val" id="a_max"></div>
+		            </div>
+		          </div>
+		        </div>
+		       <div class="col-sm-2" style="background-color:#f4be41; margin: 20px; width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3><p>Average</p></h3>
+		              <div class="arbor-val" id="a_avg"></div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-sm-2" style="background-color:#41ebf4; margin: 20px;  width: 350px;height: 100px; margin-top:auto; margin-bottom:auto;">
+		          <div class="info-box">
+		            <span class="info-box-icon bg-aqua"></span>
+		            <div class="info-box-content">
+		              <h3> <p> Minimum</p></h3>
+		              <div class="arbor-val" id="a_min"></div>
+		            </div>
+		          </div>
+		        </div>
+      		</div>
+      		
+      		<div class='row' id='device' style="border: 1px solid #c5c5c5; margin: 10px;">
+      		<div class="row" style="position: relative; left:5%">
+      			<div class="col-md-4 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box">
+		           <h3 style="text-align: center;">Device</h3>	
+		          </div>		
+        		</div>
+        		<div class="col-md-3 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box" >
+		           <h3 style="text-align: center;">Monitoring-Status</h3>
+		          </div>		
+        		</div>
+        		<div class="col-md-3 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box" >
+		           <h3 style="text-align: center;">Health</h3>	
+		          </div>		
+        		</div>
+        		<br/>
+      		
+      			{% for item in devices %}
+      			<div class="col-md-4 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box">
+		           <div style="text-align: center;">{{item.fqdn}}</div>		           
+		          </div>		
+        		</div>
+        		<div class="col-md-3 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box" id='status' >
+		           <div class={{item.em7_monitoring}} id='stat' style="text-align: center;">{{item.em7_monitoring}}</div>			           
+		          </div>		
+        		</div>
+        		<div class="col-md-3 col-sm-6 col-xs-12">
+				<br />
+		          <div class="small-box" id='health'>
+		           <div class='{{item.health}}' style="text-align: center;">{{item.health}}</div>		           
+		          </div>		
+        		</div>
+
+        		<br/>
+        		{% endfor %}
+        		</div>
+      		</div>
+    </div>
+</div>
+  <!-- Popper.JS -->
+<script src="/static/arbor/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/static/arbor/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+     function myFunction(x) {
+ 	   $('#sidebar').toggleClass('active');
+ 	}
+
+		var status=document.getElementById('stat').innerHTML;
+		console.log("status : ", status);
+</script>
+<!-- chart scripts-->
+<script src='/static/arbor/js/chart.min.js'></script>
+<script src='/static/arbor/js/chartjs-plugin-datalabels'></script>
+
+<script>
+var api;
+var alert = []
+var miti = []
+
+var getData= function(){
+	$.ajax({
+    url: '/arbor/ajax/ArborData/',
+    dataType: 'json',
+    success: function (data) {
+    	alert = data.alert;
+    	miti = data.mit;
+    	$('#m_min').html(miti.min);
+    	$('#m_avg').html(miti.avg);
+    	$('#m_max').html(miti.max);
+    	$('#a_min').html(alert.min);
+    	$('#a_avg').html(alert.avg);
+    	$('#a_max').html(alert.max);
+
+    	miti_gauge();
+    	alert_gauge();
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+});
+};
+
+var deviceData= function(){
+	$.ajax({
+    url: '/arbor/ajax/DeviceData/',
+    dataType: 'json',
+    success: function (data) {
+    	api = [1,2,3];
+		console.log("in device Data ajax call");
+		
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+});
+};
+
+function miti_gauge(){
+    var gauge = $("#m_gauge").dxCircularGauge({
+        scale: {
+            startValue: 0,
+            endValue: 100,
+            tickInterval: 5,
+            label: {
+                customizeText: function (arg) {
+                    return arg.valueText;
+                }
+            }
+        },
+        rangeContainer: {
+            ranges: [
+                { startValue: 0, endValue: 60, color: "#77DD77" },
+                { startValue: 60, endValue: 80, color: "#FF7F50" },
+                { startValue: 80, endValue: 100, color: "#DC143C" }
+            ]
+        },
+        tooltip: { enabled: true },
+        title: {
+            text: "CURRENT MITIGATION",
+            font: { size: 25 }
+        },
+        value : miti.value,
+        subvalues : [miti.min, miti.max]
+    }).dxCircularGauge("instance");
+
+}
+
+function alert_gauge(){
+    var gauge = $("#a_gauge").dxCircularGauge({
+        scale: {
+            startValue: 0,
+            endValue: 100,
+            tickInterval: 5,
+            label: {
+                customizeText: function (arg) {
+                    return arg.valueText;
+                }
+            }
+        },
+        rangeContainer: {
+            ranges: [
+                { startValue: 0, endValue: 60, color: "#77DD77" },
+                { startValue: 60, endValue: 80, color: "#FF7F50" },
+                { startValue: 80, endValue: 100, color: "#DC143C" }
+            ]
+        },
+        tooltip: { enabled: true },
+        title: {
+            text: "CURRENT ALERT",
+            font: { size: 25 }
+        },
+        value : alert.value,
+        subvalues : [alert.min, alert.max]
+    }).dxCircularGauge("instance");
+
+}
+
+getData();
+deviceData();
+setInterval(getData, 60000);
+setInterval(deviceData, 30000);
+
+
+</script>
+</body>
+</html>
